@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="0" stdDeviation="3" flood-color="#00fff2" flood-opacity="0.9"/>
+    </filter>
+  </defs>
+  <g filter="url(#glow)">
+    <rect x="6" y="6" width="88" height="88" rx="12" ry="12" fill="#050810" stroke="#00fff2" stroke-width="5"/>
+    <circle cx="28" cy="28" r="8" fill="#00fff2"/>
+    <circle cx="72" cy="28" r="8" fill="#00fff2"/>
+    <circle cx="50" cy="50" r="8" fill="#00fff2"/>
+    <circle cx="28" cy="72" r="8" fill="#00fff2"/>
+    <circle cx="72" cy="72" r="8" fill="#00fff2"/>
+  </g>
+</svg>
