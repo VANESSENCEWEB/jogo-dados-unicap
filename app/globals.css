@@ -47,3 +47,51 @@ a {
     color-scheme: dark;
   }
 }
+
+.jogo {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 1rem;
+  text-align: center;
+}
+
+.jogadores {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.jogador {
+  flex: 1 1 280px;
+  max-width: 360px;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+.dados {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  margin: 1rem 0;
+}
+
+.dado {
+  max-width: 100%;
+  height: auto;
+}
+
+button {
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0.5rem 1.25rem;
+  font-size: 1rem;
+}
+
+@media (min-width: 768px) {
+  .jogo {
+    padding: 2rem;
+  }
+}
