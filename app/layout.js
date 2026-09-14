@@ -1,6 +1,11 @@
 /**
  * layout.js — Server Component (não tem 'use client').
  * Vale para todas as páginas: fonte, metadata e o vídeo de fundo.
+ *
+ * SEO no App Router: este `metadata` vira as mesmas <meta> do HTML
+ * (title, description, Open Graph, Twitter). Não usa next/head.
+ * Favicon e imagem de compartilhamento vêm dos arquivos em app/:
+ * icon.png, apple-icon.png, opengraph-image.jpg.
  */
 import { Plus_Jakarta_Sans, Sora } from 'next/font/google';
 import FundoVideo from '../components/FundoVideo';
@@ -18,16 +23,45 @@ const jakarta = Plus_Jakarta_Sans({
   variable: '--font-ui',
 });
 
+const siteUrl = 'https://jogo-dados-ashen.vercel.app';
+
 export const metadata = {
-  title: 'Neon Dice',
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: 'Neon Dice',
+    template: '%s · Neon Dice',
+  },
   description:
-    'Duelo local de dados em React: 2 jogadores, 5 rodadas, skins, save no navegador e mesa com dados 3D.',
+    'Duelo local de dados em Next.js: 2 jogadores, 5 rodadas, no mesmo aparelho. Maior soma vence a rodada.',
+  applicationName: 'Neon Dice',
+  authors: [{ name: 'Vanessa Rafaella Carneiro de Lima' }],
+  keywords: ['jogo de dados', 'Next.js', 'React', 'UNICAP', 'dois jogadores'],
+  openGraph: {
+    type: 'website',
+    locale: 'pt_BR',
+    url: '/',
+    siteName: 'Neon Dice',
+    title: 'Neon Dice',
+    description:
+      'Dois jogadores, cinco rodadas, um aparelho. Só um botão Jogar fica ativo por vez.',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Neon Dice',
+    description:
+      'Duelo local de dados: 2 jogadores, 5 rodadas, no mesmo aparelho.',
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export const viewport = {
   width: 'device-width',
   initialScale: 1,
   viewportFit: 'cover',
+  themeColor: '#050810',
 };
 
 export default function RootLayout({ children }) {

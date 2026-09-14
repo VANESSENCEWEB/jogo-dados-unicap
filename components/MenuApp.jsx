@@ -102,7 +102,7 @@ export default function MenuApp({
         <ul>
           <li>
             <button type="button" onClick={() => fecharE(onComoJogar)}>
-              Guia completo
+              Como jogar
             </button>
           </li>
           <li>
@@ -144,8 +144,14 @@ export default function MenuApp({
       <span className="nav-neon nav-neon-lado nav-neon-dir" aria-hidden="true" />
       <div className="app-brand">
         <strong>
-          <span className="app-brand-dado" aria-hidden="true">🎲</span>
-          Jogue Dados
+          <img
+            className="app-brand-dado"
+            src="/icon.png"
+            alt=""
+            width="36"
+            height="36"
+          />
+          <span className="app-brand-nome">Jogue Dados</span>
         </strong>
       </div>
 

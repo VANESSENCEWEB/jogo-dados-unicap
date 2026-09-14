@@ -1297,9 +1297,15 @@ body::after {
 }
 
 .app-brand-dado {
-  font-size: 1.15rem;
-  line-height: 1;
+  width: 28px;
+  height: 28px;
+  object-fit: cover;
+  border-radius: 8px;
   filter: drop-shadow(0 0 8px rgba(0, 255, 242, 0.45));
+}
+
+.app-brand-nome {
+  white-space: nowrap;
 }
 
 .menu-toggle,
@@ -2682,9 +2688,20 @@ body::after {
     grid-column: auto;
   }
 
+  .app-brand-nome {
+    display: none;
+  }
+
   .lobby-ajuda {
-    height: auto;
-    min-height: 12rem;
+    display: none;
+  }
+
+  .lobby-viewport .skin-dado-wrap {
+    min-height: min(52vw, 240px);
+  }
+
+  .lobby-viewport .skin-dado-wrap .dado {
+    --tamanho: min(200px, 52vw);
   }
 
   .lobby-nome-acoes {
@@ -2902,11 +2919,11 @@ body::after {
   }
 
   .lobby-viewport .skin-dado-wrap {
-    min-height: 156px;
+    min-height: min(56vw, 220px);
   }
 
   .lobby-viewport .skin-dado-wrap .dado {
-    --tamanho: 128px;
+    --tamanho: min(188px, 50vw);
   }
 
   .skin-palco {
