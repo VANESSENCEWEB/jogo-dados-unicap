@@ -128,21 +128,24 @@ body::after {
   position: relative;
   z-index: 2;
   width: 100%;
+  max-width: 100%;
   min-height: 100dvh;
+  height: auto;
   display: flex;
-  align-items: stretch;
+  align-items: flex-start;
   justify-content: center;
   padding: clamp(8px, 1.6vw, 16px);
   padding-bottom: max(16px, env(safe-area-inset-bottom));
   overflow-x: hidden;
+  overflow-y: visible;
 }
 
 .jogo-card {
   width: 100%;
   max-width: min(1180px, 100%);
-  flex: 1;
+  flex: 1 0 auto;
   min-width: 0;
-  min-height: 0;
+  min-height: auto;
   overflow: visible;
   display: flex;
   flex-direction: column;
@@ -592,7 +595,7 @@ body::after {
 
 .jogador-identidade {
   display: grid;
-  grid-template-columns: auto auto auto;
+  grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: center;
   justify-content: center;
   gap: 12px 14px;
@@ -684,9 +687,12 @@ body::after {
   display: flex;
   justify-content: center;
   align-items: flex-end;
+  flex-wrap: wrap;
   gap: clamp(32px, 5.5vw, 64px);
   min-height: 0;
+  min-width: 0;
   width: 100%;
+  max-width: 100%;
   padding: 10px 8px 8px;
 }
 
@@ -881,10 +887,12 @@ body::after {
 .dado {
   --tamanho: 112px;
   width: calc(var(--tamanho) * 1.42);
+  max-width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  flex-shrink: 0;
+  flex-shrink: 1;
+  min-width: 0;
   isolation: isolate;
 }
 
@@ -1155,11 +1163,12 @@ body::after {
 .plataforma {
   width: min(100%, 1180px);
   min-width: 0;
+  max-width: 100%;
   display: flex;
   flex-direction: column;
   min-height: 0;
   gap: var(--space-4);
-  overflow-x: clip;
+  overflow: visible;
 }
 
 .app-header {
@@ -1282,13 +1291,14 @@ body::after {
   gap: 8px;
   text-align: left;
   min-width: 0;
-  flex-shrink: 0;
+  flex: 1 1 auto;
 }
 
 .app-brand strong {
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  min-width: 0;
   font-family: var(--font-display), sans-serif;
   letter-spacing: -0.02em;
   font-size: 1.12rem;
@@ -1305,9 +1315,12 @@ body::after {
 }
 
 .app-brand-nome {
+  overflow: hidden;
+  text-overflow: ellipsis;
   white-space: nowrap;
 }
 
+.botao-manual,
 .menu-toggle,
 .menu-fundo,
 .app-nav-cabecalho,
@@ -1337,6 +1350,29 @@ body::after {
   border-radius: 2px;
   background: var(--ciano);
   transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.botao-manual {
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  padding: 8px 14px;
+  border: 1px solid rgba(0, 255, 242, 0.45);
+  border-radius: 999px;
+  background: rgba(0, 255, 242, 0.1);
+  color: #f4fffd;
+  font-family: inherit;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.botao-manual.aberto {
+  background: rgba(255, 43, 214, 0.16);
+  border-color: rgba(255, 43, 214, 0.5);
 }
 
 .menu-toggle.aberto span:nth-child(1) {
@@ -2055,6 +2091,8 @@ body::after {
   display: grid;
   place-items: center;
   min-height: 130px;
+  max-width: 100%;
+  overflow: hidden;
   cursor: pointer;
 }
 
@@ -2077,8 +2115,8 @@ body::after {
 }
 
 .lobby-viewport .skin-palco {
-  width: calc(100% + 12px);
-  margin-inline: -6px;
+  width: 100%;
+  margin-inline: 0;
 }
 
 .skin-dado-wrap:hover .dado-inclinacao,
@@ -2600,6 +2638,14 @@ body::after {
     grid-column: 1 / -1;
   }
 
+  .jogador-coluna.palco .dado {
+    --tamanho: clamp(60px, 9vw, 96px);
+  }
+
+  .dados-linha {
+    gap: clamp(16px, 3vw, 32px);
+  }
+
   .app-nav-status {
     display: none;
   }
@@ -2645,6 +2691,17 @@ body::after {
     grid-template-columns: 1fr;
   }
 
+  .jogadores,
+  .jogadores.final {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+
+  .mesa {
+    height: auto;
+    min-height: 0;
+  }
+
   .lobby-versus {
     position: static;
     transform: none;
@@ -2674,6 +2731,8 @@ body::after {
 
   .app-header {
     z-index: 50;
+    gap: 8px;
+    padding: 8px 10px;
   }
 
   .app-utils {
@@ -2681,14 +2740,52 @@ body::after {
   }
 
   .lobby-palco {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
   }
 
   .lobby-lado {
+    order: -1;
     grid-column: auto;
   }
 
-  .app-brand-nome {
+  .lobby-card-titulo {
+    order: 0;
+  }
+
+  .lobby-card-dica {
+    order: 1;
+  }
+
+  .lobby-nome {
+    order: 2;
+    width: 100%;
+  }
+
+  .lobby-nome-status,
+  .lobby-erro {
+    order: 3;
+  }
+
+  .lobby-card .skin-carrossel {
+    order: 4;
+  }
+
+  .lobby-vitorias {
+    order: 5;
+  }
+
+  .lobby-acoes {
+    position: sticky;
+    bottom: 0;
+    z-index: 6;
+    padding: 10px 0 calc(8px + env(safe-area-inset-bottom));
+    background: linear-gradient(180deg, transparent, rgba(7, 12, 22, 0.96) 22%);
+  }
+
+  .lobby-dica-cta,
+  .skin-teclado {
     display: none;
   }
 
@@ -2697,11 +2794,11 @@ body::after {
   }
 
   .lobby-viewport .skin-dado-wrap {
-    min-height: min(52vw, 240px);
+    min-height: 112px;
   }
 
   .lobby-viewport .skin-dado-wrap .dado {
-    --tamanho: min(200px, 52vw);
+    --tamanho: min(96px, 34vw);
   }
 
   .lobby-nome-acoes {
@@ -2713,16 +2810,18 @@ body::after {
   }
 
   .app-brand strong {
-    font-size: 1rem;
+    font-size: 0.95rem;
   }
 
-  .menu-toggle {
-    display: grid;
+  .botao-manual {
+    display: inline-flex;
   }
 
-  body.menu-aberto .menu-toggle {
-    visibility: hidden;
-    pointer-events: none;
+  .mesa-duelo,
+  .mesa-moldura {
+    flex: none;
+    min-height: 0;
+    height: auto;
   }
 
   .menu-fundo {
@@ -2872,11 +2971,11 @@ body::after {
   }
 
   .jogador-coluna.palco .dado {
-    --tamanho: clamp(56px, 18vw, 88px);
+    --tamanho: clamp(52px, 22vw, 72px);
   }
 
   .jogador-coluna.palco .dados-linha {
-    gap: clamp(12px, 4vw, 24px);
+    gap: clamp(8px, 3vw, 16px);
     padding: 8px 0 4px;
   }
 
@@ -2919,19 +3018,23 @@ body::after {
   }
 
   .lobby-viewport .skin-dado-wrap {
-    min-height: min(56vw, 220px);
+    min-height: 96px;
   }
 
   .lobby-viewport .skin-dado-wrap .dado {
-    --tamanho: min(188px, 50vw);
+    --tamanho: min(88px, 32vw);
   }
 
   .skin-palco {
     grid-template-columns: 40px 1fr 40px;
   }
 
+  .jogador-coluna.palco .dado {
+    --tamanho: clamp(48px, 20vw, 64px);
+  }
+
   .dados-linha {
-    gap: 28px;
+    gap: 12px;
   }
 
   .soma {
@@ -2948,7 +3051,7 @@ body::after {
   }
 
   .jogadores.final .jogador-coluna.palco .dado {
-    --tamanho: clamp(64px, 22vw, 88px);
+    --tamanho: clamp(52px, 20vw, 72px);
   }
 
   .guia-caixa,
@@ -2983,17 +3086,17 @@ body::after {
   }
 
   .lobby-viewport .skin-dado-wrap .dado {
-    --tamanho: min(112px, 42vw);
+    --tamanho: min(80px, 30vw);
   }
 }
 
 @media (max-width: 400px) {
   .jogador-coluna.palco .dado {
-    --tamanho: clamp(70px, 24vw, 88px);
+    --tamanho: clamp(44px, 20vw, 58px);
   }
 
   .jogador-coluna.palco .dados-linha {
-    gap: 24px;
+    gap: 10px;
   }
 }
 

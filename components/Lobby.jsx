@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Dado from './Dado';
 import { PassosLobby } from './GuiaJogo';
 import { TEMAS } from '../lib/temas';
@@ -20,10 +20,18 @@ export default function Lobby({
   onContinuar,
 }) {
   const [passo, setPasso] = useState(1);
+  const acoesRef = useRef(null);
   const jogador1 = passo === 1;
   const jogador = jogador1 ? perfil.jogador1 : perfil.jogador2;
   const lado = jogador1 ? 'jogador1' : 'jogador2';
   const titulo = jogador1 ? 'Jogador 1' : 'Jogador 2';
+
+  useEffect(() => {
+    if (passo !== 2) return;
+    const campo = document.getElementById('nome-jogador2');
+    campo?.focus({ preventScroll: true });
+    campo?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }, [passo]);
 
   return (
     <div className="lobby lobby-viewport">
@@ -47,6 +55,11 @@ export default function Lobby({
             jogador={jogador}
             vitorias={jogador1 ? estatisticas.vitorias1 : estatisticas.vitorias2}
             onChange={onChangeJogador}
+            onSalvou={
+              jogador1
+                ? () => setPasso(2)
+                : () => acoesRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' })
+            }
           />
         </div>
 
@@ -87,7 +100,7 @@ export default function Lobby({
             </div>
           </dl>
 
-          <div className="lobby-acoes">
+          <div className="lobby-acoes" ref={acoesRef}>
             {jogador1 ? (
               <button className="botao-cta" type="button" onClick={() => setPasso(2)}>
                 <span>Continuar</span>
@@ -120,7 +133,7 @@ export default function Lobby({
   );
 }
 
-function CartaoJogador({ lado, titulo, dica, jogador, vitorias, onChange }) {
+function CartaoJogador({ lado, titulo, dica, jogador, vitorias, onChange, onSalvou }) {
   const { buscarNick, carregando, erro } = useSugestaoNick();
   const inputId = `nome-${lado}`;
   const statusId = `${lado}-status`;
@@ -136,6 +149,7 @@ function CartaoJogador({ lado, titulo, dica, jogador, vitorias, onChange }) {
     const nome = (jogador.nome || '').trim();
     onChange(lado, { nome });
     avisar(nome ? `Nome do ${titulo} salvo: ${nome}` : `Nome do ${titulo} em branco. Na mesa vira ${titulo}.`);
+    onSalvou?.();
   }
 
   async function gerarNick() {
@@ -143,6 +157,7 @@ function CartaoJogador({ lado, titulo, dica, jogador, vitorias, onChange }) {
     if (nick) {
       onChange(lado, { nome: nick });
       avisar(`Nome do ${titulo} gerado e salvo: ${nick}`);
+      onSalvou?.();
     }
   }
 

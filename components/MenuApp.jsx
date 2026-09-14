@@ -94,7 +94,7 @@ export default function MenuApp({
         inert={!aberto || undefined}
       >
         <div className="app-nav-cabecalho">
-          <p className="app-nav-titulo">Menu</p>
+          <p className="app-nav-titulo">Manual</p>
           <button type="button" className="menu-fechar" onClick={() => onAberto(false)}>
             Fechar
           </button>
@@ -193,15 +193,13 @@ export default function MenuApp({
 
       <button
         type="button"
-        className={`menu-toggle ${aberto ? 'aberto' : ''}`}
+        className={`botao-manual ${aberto ? 'aberto' : ''}`}
         aria-expanded={aberto}
+        aria-label={aberto ? 'Fechar manual' : 'Abrir manual'}
         aria-controls="menu-principal"
         onClick={() => onAberto(!aberto)}
       >
-        <span />
-        <span />
-        <span />
-        <em className="sr-only">{aberto ? 'Fechar menu' : 'Abrir menu'}</em>
+        {aberto ? 'Fechar' : 'Manual'}
       </button>
     </header>
     {noCliente ? createPortal(drawer, document.body) : null}
