@@ -2530,7 +2530,7 @@ body::after {
 .modal-reset {
   position: fixed;
   inset: 0;
-  z-index: 20;
+  z-index: 120;
   display: grid;
   place-items: center;
   padding: max(12px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right)) max(12px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left));
@@ -2666,6 +2666,10 @@ body::after {
     overflow: hidden;
   }
 
+  .app-header {
+    z-index: 50;
+  }
+
   .app-utils {
     display: none;
   }
@@ -2679,11 +2683,20 @@ body::after {
   }
 
   .lobby-ajuda {
-    height: 17rem;
+    height: auto;
+    min-height: 12rem;
   }
 
   .lobby-nome-acoes {
     grid-template-columns: 1fr;
+  }
+
+  .jogo-card {
+    padding: 12px 10px 16px;
+  }
+
+  .app-brand strong {
+    font-size: 1rem;
   }
 
   .menu-toggle {
@@ -2699,19 +2712,20 @@ body::after {
     display: block;
     position: fixed;
     inset: 0;
-    z-index: 40;
+    z-index: 90;
     border: 0;
     background: rgba(5, 8, 16, 0.72);
     cursor: pointer;
   }
 
   .app-nav {
+    display: flex;
     position: fixed;
     top: 0;
     right: 0;
     bottom: 0;
     left: auto;
-    z-index: 45;
+    z-index: 95;
     width: min(20rem, 86vw);
     height: 100dvh;
     margin: 0;
@@ -2793,7 +2807,13 @@ body::after {
   }
 
   .como-funciona {
-    position: absolute;
+    position: relative;
+    height: auto;
+    overflow: visible;
+  }
+
+  .como-funciona-corpo {
+    min-height: 4.5rem;
   }
 
   .guia-acoes {
@@ -2822,6 +2842,7 @@ body::after {
   .jogadores {
     height: auto;
     gap: var(--space-4);
+    grid-template-columns: 1fr;
   }
 
   .jogador-coluna.palco {
@@ -2834,12 +2855,12 @@ body::after {
   }
 
   .jogador-coluna.palco .dado {
-    --tamanho: clamp(76px, 22vw, 100px);
+    --tamanho: clamp(56px, 18vw, 88px);
   }
 
   .jogador-coluna.palco .dados-linha {
-    gap: 28px;
-    padding: 12px 0 8px;
+    gap: clamp(12px, 4vw, 24px);
+    padding: 8px 0 4px;
   }
 
   .jogador-coluna.banco {
@@ -2917,6 +2938,35 @@ body::after {
   .modal-reset-caixa {
     width: min(100%, 420px);
     margin: 0 8px;
+  }
+}
+
+@media (max-width: 520px) {
+  .jogadores,
+  .jogadores.final {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+
+  .jogador-identidade {
+    grid-template-columns: auto minmax(0, 1fr);
+    justify-content: start;
+  }
+
+  .vez-selo {
+    justify-self: start;
+  }
+
+  .botao-jogar {
+    width: min(100%, 220px);
+  }
+
+  .mesa-status-linha {
+    font-size: 0.92rem;
+  }
+
+  .lobby-viewport .skin-dado-wrap .dado {
+    --tamanho: min(112px, 42vw);
   }
 }
 

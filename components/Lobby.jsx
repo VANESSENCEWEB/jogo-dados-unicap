@@ -218,9 +218,11 @@ function SeletorSkin({ lado, temaId, onChange }) {
 
   useEffect(() => {
     function onKey(event) {
-      const tag = event.target.tagName;
+      const alvo = event.target;
+      if (!(alvo instanceof Element)) return;
+      const tag = alvo.tagName;
       if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
-      if (event.target.closest('summary')) return;
+      if (alvo.closest('summary')) return;
       if (event.key === 'ArrowLeft') {
         event.preventDefault();
         ir(-1);

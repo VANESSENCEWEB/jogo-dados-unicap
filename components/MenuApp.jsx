@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import RastroDado from './RastroDado';
 
 export const MENU_MOBILE_PX = 720;
@@ -51,6 +52,11 @@ export default function MenuApp({
   onResetar,
 }) {
   const [rastro, setRastro] = useState(false);
+  const [noCliente, setNoCliente] = useState(false);
+
+  useEffect(() => {
+    setNoCliente(true);
+  }, []);
 
   useEffect(() => {
     function onResize() {
@@ -69,6 +75,59 @@ export default function MenuApp({
     onAberto(false);
     acao();
   }
+
+  const drawer = (
+    <>
+      {aberto ? (
+        <button
+          type="button"
+          className="menu-fundo"
+          aria-label="Fechar menu"
+          onClick={() => onAberto(false)}
+        />
+      ) : null}
+      <nav
+        id="menu-principal"
+        className={`app-nav ${aberto ? 'aberto' : ''}`}
+        aria-label="Menu do jogo"
+        aria-hidden={!aberto}
+        inert={!aberto || undefined}
+      >
+        <div className="app-nav-cabecalho">
+          <p className="app-nav-titulo">Menu</p>
+          <button type="button" className="menu-fechar" onClick={() => onAberto(false)}>
+            Fechar
+          </button>
+        </div>
+        <ul>
+          <li>
+            <button type="button" onClick={() => fecharE(onComoJogar)}>
+              Guia completo
+            </button>
+          </li>
+          <li>
+            <button type="button" onClick={() => fecharE(onSom)} aria-pressed={somLigado}>
+              {somLigado ? 'Som ligado' : 'Som desligado'}
+            </button>
+          </li>
+          <li>
+            <button type="button" onClick={() => fecharE(onTelaCheia)}>
+              {telaCheia ? 'Sair da tela cheia' : 'Tela cheia'}
+            </button>
+          </li>
+          <li>
+            <button type="button" className="perigo" onClick={() => fecharE(onResetar)}>
+              Resetar temporada
+            </button>
+          </li>
+        </ul>
+        <p className="app-nav-status">
+          <i />
+          Save
+        </p>
+      </nav>
+    </>
+  );
 
   return (
     <>
@@ -138,51 +197,8 @@ export default function MenuApp({
         <span />
         <em className="sr-only">{aberto ? 'Fechar menu' : 'Abrir menu'}</em>
       </button>
-
-      {aberto ? (
-        <button
-          type="button"
-          className="menu-fundo"
-          aria-label="Fechar menu"
-          onClick={() => onAberto(false)}
-        />
-      ) : null}
-
-      <nav
-        id="menu-principal"
-        className={`app-nav ${aberto ? 'aberto' : ''}`}
-        aria-label="Menu do jogo"
-      >
-        <div className="app-nav-cabecalho">
-          <p className="app-nav-titulo">Menu</p>
-          <button type="button" className="menu-fechar" onClick={() => onAberto(false)}>
-            Fechar
-          </button>
-        </div>
-        <ul>
-          <li>
-            <button type="button" onClick={() => fecharE(onComoJogar)}>
-              Guia completo
-            </button>
-          </li>
-          <li>
-            <button type="button" onClick={() => fecharE(onSom)} aria-pressed={somLigado}>
-              {somLigado ? 'Som ligado' : 'Som desligado'}
-            </button>
-          </li>
-          <li>
-            <button type="button" onClick={() => fecharE(onTelaCheia)}>
-              {telaCheia ? 'Sair da tela cheia' : 'Tela cheia'}
-            </button>
-          </li>
-          <li>
-            <button type="button" className="perigo" onClick={() => fecharE(onResetar)}>
-              Resetar temporada
-            </button>
-          </li>
-        </ul>
-      </nav>
     </header>
+    {noCliente ? createPortal(drawer, document.body) : null}
     <RastroDado ativo={rastro} />
     </>
   );
