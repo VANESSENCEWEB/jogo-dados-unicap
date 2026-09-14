@@ -2540,16 +2540,60 @@ body::after {
   min-height: 1.7em;
   padding: 3px 7px;
   margin-right: 4px;
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  border-bottom-width: 3px;
   border-radius: 6px;
-  background: linear-gradient(180deg, rgba(58, 70, 96, 0.95), rgba(12, 16, 28, 0.95));
-  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.14);
   font-family: inherit;
   font-size: 0.68rem;
   font-weight: 700;
-  color: #f4fffd;
   line-height: 1;
+  user-select: none;
+}
+
+.skin-teclado kbd {
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-bottom-width: 3px;
+  background: linear-gradient(180deg, rgba(58, 70, 96, 0.95), rgba(12, 16, 28, 0.95));
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.14);
+  color: #f4fffd;
+}
+
+.hud-comandos kbd {
+  position: relative;
+  top: 0;
+  min-width: 1.85em;
+  min-height: 1.85em;
+  padding: 4px 8px;
+  border: 1px solid #f6e3a4;
+  border-bottom: 4px solid #8a6418;
+  background: linear-gradient(180deg, #fff1c2 0%, var(--ouro) 48%, #c99a3e 100%);
+  color: #2a1c04;
+  cursor: pointer;
+  box-shadow:
+    0 3px 0 #6e4e10,
+    0 5px 10px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.65);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
+  transition:
+    transform 0.08s ease,
+    box-shadow 0.08s ease,
+    border-bottom-width 0.08s ease,
+    top 0.08s ease,
+    filter 0.12s ease;
+}
+
+.hud-comandos kbd:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
+
+.hud-comandos kbd:active {
+  top: 3px;
+  transform: translateY(0);
+  border-bottom-width: 1px;
+  filter: brightness(0.96);
+  box-shadow:
+    0 0 0 #6e4e10,
+    0 1px 3px rgba(0, 0, 0, 0.35),
+    inset 0 2px 4px rgba(90, 60, 10, 0.28);
 }
 
 .skin-teclado {
@@ -3176,6 +3220,10 @@ body::after {
 
   .dado-cubo {
     transition-duration: 0.01ms;
+  }
+
+  .hud-comandos kbd {
+    transition: none;
   }
 
   .nav-neon {
