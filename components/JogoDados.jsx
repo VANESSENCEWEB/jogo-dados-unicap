@@ -30,6 +30,7 @@ import {
   resultadoPartida,
   resultadoRodada,
   somaDados,
+  tituloFimPartida,
   TOTAL_RODADAS,
 } from '../lib/regras';
 import { gravarPrefs, lerPrefs } from '../lib/prefs';
@@ -427,9 +428,11 @@ export default function JogoDados() {
                   ← Sala
                 </button>
                 <div className="mesa-barra-meio">
-                  <p className="jogo-kicker">5 rodadas · os dois jogam em cada uma</p>
-                  <p className="jogo-rodada">
-                    Rodada {rodada} de {TOTAL_RODADAS}
+                  <h2 className="jogo-titulo mesa-titulo">Jogo de dados</h2>
+                  <p className={`jogo-rodada ${jogoFinalizado ? 'final' : ''}`}>
+                    {jogoFinalizado
+                      ? tituloFimPartida(placar, nomes)
+                      : `Rodada ${rodada} de ${TOTAL_RODADAS}`}
                   </p>
                   <ol className="rodadas-tracker" aria-label="Progresso das rodadas">
                     {Array.from({ length: TOTAL_RODADAS }, (_, i) => {
