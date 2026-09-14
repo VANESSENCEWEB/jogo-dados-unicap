@@ -28,28 +28,28 @@ const siteUrl = 'https://joga-dados-unicap.vercel.app';
 export const metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: 'Neon Dice',
-    template: '%s · Neon Dice',
+    default: 'Jogue Dados',
+    template: '%s · Jogue Dados',
   },
   description:
-    'Duelo local de dados em Next.js: 2 jogadores, 5 rodadas, no mesmo aparelho. Maior soma vence a rodada.',
-  applicationName: 'Neon Dice',
+    'Jogue Dados: duelo local em Next.js — 2 jogadores, 5 rodadas, no mesmo aparelho. Maior soma vence a rodada.',
+  applicationName: 'Jogue Dados',
   authors: [{ name: 'Vanessa Rafaella Carneiro de Lima' }],
-  keywords: ['jogo de dados', 'Next.js', 'React', 'UNICAP', 'dois jogadores'],
+  keywords: ['jogo de dados', 'Jogue Dados', 'Next.js', 'React', 'UNICAP', 'dois jogadores'],
   openGraph: {
     type: 'website',
     locale: 'pt_BR',
     url: '/',
-    siteName: 'Neon Dice',
-    title: 'Neon Dice',
+    siteName: 'Jogue Dados',
+    title: 'Jogue Dados',
     description:
-      'Dois jogadores, cinco rodadas, um aparelho. Só um botão Jogar fica ativo por vez.',
+      'Jogue Dados: dois jogadores, cinco rodadas, um aparelho. Só um botão Jogar fica ativo por vez.',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Neon Dice',
+    title: 'Jogue Dados',
     description:
-      'Duelo local de dados: 2 jogadores, 5 rodadas, no mesmo aparelho.',
+      'Jogue Dados: duelo local de dados — 2 jogadores, 5 rodadas, no mesmo aparelho.',
   },
   robots: {
     index: true,
