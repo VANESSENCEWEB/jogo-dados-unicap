@@ -23,7 +23,7 @@ const jakarta = Plus_Jakarta_Sans({
   variable: '--font-ui',
 });
 
-const siteUrl = 'https://jogo-dados-ashen.vercel.app';
+const siteUrl = 'https://joga-dados-unicap.vercel.app';
 
 export const metadata = {
   metadataBase: new URL(siteUrl),
