@@ -149,7 +149,7 @@ body::after {
   overflow: visible;
   display: flex;
   flex-direction: column;
-  background: var(--vidro);
+  background: transparent;
   border: 1px solid rgba(0, 255, 242, 0.28);
   border-radius: clamp(14px, 2vw, 22px);
   padding: clamp(14px, 2.4vw, 28px) clamp(12px, 2vw, 24px) clamp(14px, 2vw, 20px);
@@ -157,9 +157,20 @@ body::after {
     0 0 0 1px rgba(255, 43, 214, 0.08),
     0 20px 60px rgba(0, 0, 0, 0.45),
     0 0 40px rgba(0, 255, 242, 0.1);
-  backdrop-filter: blur(14px);
   text-align: center;
   position: relative;
+  isolation: isolate;
+}
+
+.jogo-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: var(--vidro);
+  backdrop-filter: blur(14px);
+  pointer-events: none;
 }
 
 .jogo-topo {
@@ -495,7 +506,7 @@ body::after {
   flex-shrink: 0;
 }
 
-.jogador-coluna.banco .dado:hover .dado-palco {
+.jogador-coluna.banco .dado:hover img {
   transform: none;
   animation: none;
 }
@@ -720,7 +731,7 @@ body::after {
   overflow: visible;
 }
 
-.dados-linha.revelada .dado.pousou .dado-palco {
+.dados-linha.revelada .dado.pousou img {
   animation: dadoRevela 0.48s cubic-bezier(0.2, 1.35, 0.32, 1);
 }
 
@@ -909,228 +920,77 @@ body::after {
 }
 
 .dado {
-  --tamanho: 112px;
-  width: calc(var(--tamanho) * 1.42);
-  max-width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  flex-shrink: 1;
-  min-width: 0;
-  isolation: isolate;
-}
-
-.dado-palco {
+  --tamanho: 88px;
   width: var(--tamanho);
   height: var(--tamanho);
-  perspective: 640px;
-  perspective-origin: 50% 40%;
-  transition: transform 0.25s ease;
-  transform-style: preserve-3d;
+  max-width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 }
 
-.dado-inclinacao {
-  width: 100%;
-  height: 100%;
-  transform: rotateX(-12deg) rotateY(16deg);
-  transform-style: preserve-3d;
-  transition: transform 0.55s cubic-bezier(0.22, 0.7, 0.2, 1);
+.dado img {
+  width: var(--tamanho);
+  height: var(--tamanho);
+  display: block;
+  object-fit: contain;
+  user-select: none;
+  pointer-events: none;
 }
 
-.dado-cubo {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  transform-style: preserve-3d;
-  transition: transform 1.35s cubic-bezier(0.22, 0.7, 0.2, 1);
+.dado.tema-plasma img {
+  filter: hue-rotate(118deg) saturate(1.25);
 }
 
-.dado-valor {
-  margin-top: 4px;
-  font-family: var(--font-display), sans-serif;
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  line-height: 1;
-  opacity: 0.92;
+.dado.tema-ouro img {
+  filter: hue-rotate(215deg) saturate(1.4) brightness(1.12);
 }
 
-.jogador-coluna.p1 .dado-valor { color: var(--ciano); }
-.jogador-coluna.p2 .dado-valor { color: #ff9ae8; }
-
-.dado-cubo.idle {
-  transition: transform 0.55s ease;
-}
-
-.dado-face {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(3, 1fr);
-  padding: 11px;
-  gap: 5px;
-  border-radius: 14px;
-  backface-visibility: hidden;
-}
-
-.dado.tema-classico .dado-face {
-  border: 1px solid rgba(80, 50, 20, 0.22);
-  box-shadow:
-    inset 0 0 10px rgba(0, 0, 0, 0.16),
-    inset 0 1px 0 rgba(255, 255, 255, 0.45);
-}
-
-.dado.tema-classico .dado-face-1 { background: linear-gradient(145deg, #fffaf2, #efe4d2); }
-.dado.tema-classico .dado-face-2 { background: linear-gradient(180deg, #fffdf8, #eadfcb); }
-.dado.tema-classico .dado-face-3 { background: linear-gradient(90deg, #f7efe2, #e2d4bf); }
-.dado.tema-classico .dado-face-4 { background: linear-gradient(-90deg, #f7efe2, #e2d4bf); }
-.dado.tema-classico .dado-face-5 { background: linear-gradient(0deg, #e8dcc8, #d4c4ae); }
-.dado.tema-classico .dado-face-6 { background: linear-gradient(145deg, #e4d7c2, #cdbda6); }
-.dado.tema-classico .pip {
-  background: radial-gradient(circle at 35% 30%, #1d6f68, #062e2c 70%);
-}
-
-.dado.tema-neon .dado-face,
-.dado.tema-plasma .dado-face,
-.dado.tema-ouro .dado-face {
-  background-image:
-    repeating-linear-gradient(
-      112deg,
-      rgba(255, 255, 255, 0.05) 0 1px,
-      transparent 1px 4px
-    );
-}
-
-.dado.tema-neon .dado-face {
-  background-color: #08151a;
-  background-image:
-    repeating-linear-gradient(112deg, rgba(0, 255, 242, 0.07) 0 1px, transparent 1px 4px),
-    linear-gradient(145deg, #1a454b 0%, #071318 52%, #040b0e 100%);
-  border: 1.5px solid #00fff2;
-  box-shadow:
-    0 0 10px rgba(0, 255, 242, 0.5),
-    inset 0 0 14px rgba(0, 255, 242, 0.16),
-    inset 0 1px 0 rgba(186, 255, 250, 0.35);
-}
-
-.dado.tema-neon .pip {
-  background: radial-gradient(circle at 32% 28%, #f4fffe, #00fff2 42%, #0a7d76 78%);
-  box-shadow: 0 0 8px #00fff2, 0 0 16px rgba(0, 255, 242, 0.7);
-}
-
-.dado.tema-plasma .dado-face {
-  background-color: #180814;
-  background-image:
-    repeating-linear-gradient(112deg, rgba(255, 43, 214, 0.08) 0 1px, transparent 1px 4px),
-    linear-gradient(145deg, #4a163c 0%, #140810 52%, #0b0509 100%);
-  border: 1.5px solid #ff2bd6;
-  box-shadow:
-    0 0 10px rgba(255, 43, 214, 0.5),
-    inset 0 0 14px rgba(255, 43, 214, 0.16),
-    inset 0 1px 0 rgba(255, 186, 236, 0.35);
-}
-
-.dado.tema-plasma .pip {
-  background: radial-gradient(circle at 32% 28%, #fff0fb, #ff2bd6 42%, #8a146d 78%);
-  box-shadow: 0 0 8px #ff2bd6, 0 0 16px rgba(255, 43, 214, 0.7);
-}
-
-.dado.tema-ouro .dado-face {
-  background-color: #2a1c08;
-  background-image:
-    repeating-linear-gradient(112deg, rgba(232, 195, 106, 0.1) 0 1px, transparent 1px 4px),
-    linear-gradient(145deg, #6a4a14 0%, #241806 52%, #120c04 100%);
-  border: 1.5px solid #e8c36a;
-  box-shadow:
-    0 0 10px rgba(232, 195, 106, 0.45),
-    inset 0 0 14px rgba(232, 195, 106, 0.14),
-    inset 0 1px 0 rgba(255, 236, 186, 0.35);
-}
-
-.dado.tema-ouro .pip {
-  background: radial-gradient(circle at 32% 28%, #fff6d8, #e8c36a 42%, #7a5410 78%);
-  box-shadow: 0 0 8px #e8c36a, 0 0 14px rgba(232, 195, 106, 0.65);
-}
-
-.dado-face-1 { transform: rotateY(0deg) translateZ(calc(var(--tamanho) / 2)); }
-.dado-face-2 { transform: rotateX(90deg) translateZ(calc(var(--tamanho) / 2)); }
-.dado-face-3 { transform: rotateY(90deg) translateZ(calc(var(--tamanho) / 2)); }
-.dado-face-4 { transform: rotateY(-90deg) translateZ(calc(var(--tamanho) / 2)); }
-.dado-face-5 { transform: rotateX(-90deg) translateZ(calc(var(--tamanho) / 2)); }
-.dado-face-6 { transform: rotateY(180deg) translateZ(calc(var(--tamanho) / 2)); }
-
-.pip,
-.pip-vazio {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-}
-
-.pip {
-  box-shadow:
-    inset 1px 1px 2px rgba(255, 255, 255, 0.25),
-    0 1px 2px rgba(0, 0, 0, 0.35);
+.dado.tema-classico img {
+  filter: grayscale(0.25) sepia(0.55) contrast(1.08) brightness(1.18);
 }
 
 .dado.vazio {
-  opacity: 0.82;
+  opacity: 0.78;
 }
 
-.dado-sombra {
-  display: block;
-  width: 70%;
-  height: 10px;
-  margin-top: 8px;
-  border-radius: 50%;
-  background: rgba(0, 0, 0, 0.38);
-  filter: blur(5px);
-}
-
-.dado.rolando .dado-palco {
+.dado.rolando img {
   animation: dadoPulo 0.28s ease-in-out infinite;
 }
 
-.dado.rolando .dado-sombra {
-  animation: sombraPulo 0.28s ease-in-out infinite;
-}
-
-.dado.tema-neon.ativo .dado-sombra { background: rgba(0, 255, 242, 0.28); }
-.dado.tema-plasma.ativo .dado-sombra { background: rgba(255, 43, 214, 0.28); }
-.dado.tema-ouro.ativo .dado-sombra { background: rgba(232, 195, 106, 0.28); }
-
-.dado:not(.rolando):not(.estatico):hover .dado-palco {
+.dado:not(.rolando):not(.estatico):hover img {
   animation: none;
-  transform: translateY(-6px);
+  transform: translateY(-4px);
 }
 
-.dado.vazio:not(.rolando):not(.estatico) .dado-palco {
+.dado.vazio:not(.rolando):not(.estatico) img {
   animation: flutua 3.4s ease-in-out infinite;
 }
 
 .dado.mini {
   --tamanho: 44px;
-  width: calc(var(--tamanho) * 1.6);
 }
 
-.dado.mini .dado-face {
-  padding: 5px;
-  gap: 2px;
-  border-radius: 8px;
+.dado.pousou.ativo img {
+  filter: drop-shadow(0 0 14px color-mix(in srgb, white 40%, transparent));
+}
+
+.dado.tema-plasma.pousou.ativo img {
+  filter: hue-rotate(118deg) saturate(1.25) drop-shadow(0 0 14px rgba(255, 43, 214, 0.7));
+}
+
+.dado.tema-ouro.pousou.ativo img {
+  filter: hue-rotate(215deg) saturate(1.4) brightness(1.12) drop-shadow(0 0 14px rgba(232, 195, 106, 0.7));
+}
+
+.dado.tema-classico.pousou.ativo img {
+  filter: grayscale(0.25) sepia(0.55) contrast(1.08) brightness(1.18) drop-shadow(0 0 10px rgba(239, 228, 210, 0.45));
 }
 
 @keyframes dadoPulo {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-}
-
-@keyframes sombraPulo {
-  0%, 100% { transform: scale(1); opacity: 0.7; }
-  50% { transform: scale(0.72); opacity: 0.35; }
-}
-
-.dado.pousou.ativo .dado-palco {
-  filter: drop-shadow(0 0 16px color-mix(in srgb, white 35%, transparent));
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(12deg); }
 }
 
 @keyframes dadoRevela {
@@ -1960,12 +1820,12 @@ body::after {
   flex-direction: column;
   align-items: center;
   gap: 14px;
+  overflow: visible;
   box-shadow: 0 0 28px color-mix(in srgb, var(--tema-cor, #00fff2) 10%, transparent);
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease;
 }
 
 .lobby-card:hover {
-  transform: translateY(-4px);
   border-color: color-mix(in srgb, var(--tema-cor) 70%, white);
   background: color-mix(in srgb, var(--tema-cor) 14%, rgba(8, 12, 22, 0.4));
   box-shadow: 0 0 0 1px color-mix(in srgb, var(--tema-cor) 28%, transparent), 0 16px 36px color-mix(in srgb, var(--tema-cor) 22%, transparent);
@@ -2074,6 +1934,7 @@ body::after {
   border-radius: 16px;
   border: 1px solid color-mix(in srgb, var(--tema-cor) 35%, transparent);
   background: color-mix(in srgb, var(--tema-cor) 8%, transparent);
+  overflow: visible;
 }
 
 .skin-palco {
@@ -2081,6 +1942,8 @@ body::after {
   grid-template-columns: 44px minmax(0, 1fr) 44px;
   align-items: center;
   width: 100%;
+  min-width: 0;
+  overflow: visible;
   padding: 0;
 }
 
@@ -2126,21 +1989,12 @@ body::after {
 }
 
 .lobby-viewport .skin-dado-wrap {
-  min-height: 248px;
-  padding: 28px 24px 40px;
+  min-height: 168px;
+  padding: 8px;
 }
 
 .lobby-viewport .skin-dado-wrap .dado {
-  --tamanho: 168px;
-  max-width: none;
-  flex-shrink: 0;
-  width: calc(var(--tamanho) * 1.55);
-}
-
-.lobby-viewport .skin-carrossel {
-  padding: 12px 6px 16px;
-  gap: 12px;
-  margin-bottom: 8px;
+  --tamanho: 132px;
 }
 
 .lobby-viewport .skin-palco {
@@ -2148,9 +2002,9 @@ body::after {
   margin-inline: 0;
 }
 
-.skin-dado-wrap:hover .dado-inclinacao,
-.skin-dado-wrap:focus-within .dado-inclinacao {
-  transform: rotateX(-20deg) rotateY(128deg) rotateZ(10deg);
+.skin-dado-wrap:hover .dado img,
+.skin-dado-wrap:focus-within .dado img {
+  transform: rotate(-8deg) scale(1.04);
 }
 
 .skin-nome {
@@ -2879,12 +2733,16 @@ body::after {
   }
 
   .lobby-viewport .skin-dado-wrap {
-    min-height: 140px;
-    padding: 12px 8px 22px;
+    min-height: 120px;
+    padding: 8px 4px;
   }
 
   .lobby-viewport .skin-dado-wrap .dado {
-    --tamanho: min(96px, 34vw);
+    --tamanho: min(88px, 30vw);
+  }
+
+  .lobby-viewport .skin-palco {
+    grid-template-columns: 40px minmax(0, 1fr) 40px;
   }
 
   .lobby-nome-acoes {
@@ -3172,8 +3030,12 @@ body::after {
     font-size: 0.92rem;
   }
 
+  .lobby-card {
+    overflow: visible;
+  }
+
   .lobby-viewport .skin-dado-wrap .dado {
-    --tamanho: min(80px, 30vw);
+    --tamanho: min(80px, 28vw);
   }
 }
 
@@ -3222,10 +3084,9 @@ body::after {
   }
 
   .fundo-overlay::after,
-  .dado.rolando .dado-palco,
-  .dado.rolando .dado-sombra,
-  .dado.vazio:not(.rolando):not(.estatico) .dado-palco,
-  .dados-linha.revelada .dado.pousou .dado-palco,
+  .dado.rolando img,
+  .dado.vazio:not(.rolando):not(.estatico) img,
+  .dados-linha.revelada .dado.pousou img,
   .soma-numero,
   .rodada-pip.atual,
   .botao-reiniciar,
@@ -3235,10 +3096,6 @@ body::after {
   .jogador-coluna.palco,
   .jogador-coluna.banco {
     animation: none;
-  }
-
-  .dado-cubo {
-    transition-duration: 0.01ms;
   }
 
   .hud-comandos kbd {
@@ -3258,13 +3115,5 @@ body::after {
   .app-header.tem-rastro,
   .app-header.tem-rastro * {
     cursor: auto;
-  }
-
-  .dado-inclinacao,
-  .skin-dado-wrap:hover .dado-inclinacao,
-  .skin-dado-wrap:focus-within .dado-inclinacao {
-    transition: none;
-    animation: none;
-    transform: rotateX(-12deg) rotateY(16deg);
   }
 }

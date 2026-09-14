@@ -123,7 +123,7 @@ export default function Lobby({
             ) : null}
             <p className="lobby-dica-cta">
               {jogador1
-                ? 'Nome vazio vira Jogador 1. Passe o mouse no dado para girar e use as setas do teclado na skin.'
+                ? 'Nome vazio vira Jogador 1. Use as setas para mudar a cor do dado.'
                 : 'Nome vazio vira Jogador 2. O nick da API é opcional. O progresso grava sozinho.'}
             </p>
           </div>
