@@ -368,12 +368,21 @@ body::after {
   color: #f4fffd;
 }
 
+.mesa-status-linha.resultado {
+  border-color: var(--ouro);
+  background: rgba(232, 195, 106, 0.14);
+  color: var(--ouro);
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(1.08rem, 3.2vw, 1.45rem);
+  letter-spacing: -0.02em;
+}
+
 .mesa-status-linha.final {
   border-color: var(--ouro);
   background: rgba(232, 195, 106, 0.12);
   color: var(--ouro);
   font-family: var(--font-display), sans-serif;
-  font-size: clamp(1.2rem, 3.2vw, 1.7rem);
+  font-size: clamp(1.08rem, 3.2vw, 1.45rem);
   letter-spacing: -0.03em;
 }
 
@@ -548,6 +557,8 @@ body::after {
 
 .jogador-coluna.palco .dado {
   --tamanho: clamp(72px, 11vw, 118px);
+  max-width: none;
+  flex-shrink: 0;
 }
 
 .jogador-coluna.palco .dados-linha {
@@ -706,6 +717,7 @@ body::after {
   width: 100%;
   max-width: 100%;
   padding: 10px 8px 8px;
+  overflow: visible;
 }
 
 .dados-linha.revelada .dado.pousou .dado-palco {
@@ -2104,7 +2116,8 @@ body::after {
   place-items: center;
   min-height: 130px;
   max-width: 100%;
-  overflow: hidden;
+  overflow: visible;
+  padding: 18px 12px 28px;
   cursor: pointer;
 }
 
@@ -2113,11 +2126,15 @@ body::after {
 }
 
 .lobby-viewport .skin-dado-wrap {
-  min-height: 188px;
+  min-height: 248px;
+  padding: 28px 24px 40px;
 }
 
 .lobby-viewport .skin-dado-wrap .dado {
   --tamanho: 168px;
+  max-width: none;
+  flex-shrink: 0;
+  width: calc(var(--tamanho) * 1.55);
 }
 
 .lobby-viewport .skin-carrossel {
@@ -2862,7 +2879,8 @@ body::after {
   }
 
   .lobby-viewport .skin-dado-wrap {
-    min-height: 112px;
+    min-height: 140px;
+    padding: 12px 8px 22px;
   }
 
   .lobby-viewport .skin-dado-wrap .dado {
@@ -3086,7 +3104,8 @@ body::after {
   }
 
   .lobby-viewport .skin-dado-wrap {
-    min-height: 96px;
+    min-height: 132px;
+    padding: 10px 6px 18px;
   }
 
   .lobby-viewport .skin-dado-wrap .dado {

@@ -67,6 +67,7 @@ export default function JogoDados() {
     revelando,
     jogoFinalizado,
     mensagemFinal,
+    rodadaConcluida,
   } = estado;
 
   // Hidratação: lê o localStorage só depois do 1º render (evita mismatch SSR).
@@ -431,7 +432,7 @@ export default function JogoDados() {
                   <h2 className="jogo-titulo mesa-titulo">Jogo de dados</h2>
                   <p className={`jogo-rodada ${jogoFinalizado ? 'final' : ''}`}>
                     {jogoFinalizado
-                      ? tituloFimPartida(placar, nomes)
+                      ? tituloFimPartida(placar)
                       : `Rodada ${rodada} de ${TOTAL_RODADAS}`}
                   </p>
                   <ol className="rodadas-tracker" aria-label="Progresso das rodadas">
@@ -471,8 +472,11 @@ export default function JogoDados() {
                 </div>
               </header>
 
-              <p className={`mesa-status mesa-status-linha ${jogoFinalizado ? 'final' : ''}`} aria-live="polite">
-                {jogoFinalizado ? mensagemFinal : mensagem}
+              <p
+                className={`mesa-status mesa-status-linha ${rodadaConcluida && !rolando ? 'resultado' : ''} ${jogoFinalizado ? 'final' : ''}`}
+                aria-live="polite"
+              >
+                {mensagem}
               </p>
 
               <div className="mesa-moldura">
