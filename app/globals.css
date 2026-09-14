@@ -417,9 +417,10 @@ body::after {
 .jogadores {
   position: relative;
   z-index: 1;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-5);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: stretch;
+  gap: var(--space-4);
   width: 100%;
   min-height: 0;
   height: 100%;
@@ -436,13 +437,12 @@ body::after {
 }
 
 .jogador-coluna.palco {
-  flex: 1;
+  flex: none;
   min-height: 0;
   justify-content: center;
-  order: 1;
+  order: 0;
   gap: var(--space-5);
   padding: 20px 16px 24px;
-  animation: palcoEntra 0.42s cubic-bezier(0.22, 1, 0.32, 1);
 }
 
 .jogador-coluna.banco {
@@ -532,7 +532,7 @@ body::after {
 }
 
 .jogador-coluna.palco .dado {
-  --tamanho: clamp(92px, 12vw, 132px);
+  --tamanho: clamp(72px, 11vw, 118px);
 }
 
 .jogador-coluna.palco .dados-linha {

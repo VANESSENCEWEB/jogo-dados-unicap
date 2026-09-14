@@ -17,7 +17,7 @@ import { nomeTema } from '../lib/temas';
  * @param {number|null} soma
  * @param {boolean} ativo é a vez desta pessoa
  * @param {boolean} rolando animação em curso
- * @param {boolean} noPalco true = dados grandes no centro; false = faixa de espera embaixo
+ * @param {boolean} noPalco true = dados grandes; false = faixa compacta (a mesa usa sempre palco)
  * @param {boolean} encerrado partida acabou — esconde os botões Jogar
  * @param {boolean} disabled
  * @param {() => void} onJogar callback (função passada como prop)

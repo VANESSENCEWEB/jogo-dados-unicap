@@ -185,7 +185,6 @@ export default function JogoDados() {
     setEstado((atual) => ({
       ...atual,
       dados1: novosDados1,
-      dados2: [null, null],
       lance1: atual.lance1 + 1,
       rolando: true,
       revelando: false,
@@ -484,7 +483,7 @@ export default function JogoDados() {
                       lance={lance1}
                       soma={soma1}
                       ativo={p1Ativo}
-                      noPalco={jogoFinalizado || turno === 'jogador1'}
+                      noPalco
                       rolando={rolando && turno === 'jogador1'}
                       encerrado={jogoFinalizado}
                       disabled={jogoFinalizado || turno !== 'jogador1' || rolando || revelando}
@@ -499,7 +498,7 @@ export default function JogoDados() {
                       lance={lance2}
                       soma={soma2}
                       ativo={p2Ativo}
-                      noPalco={jogoFinalizado || turno === 'jogador2'}
+                      noPalco
                       rolando={rolando && turno === 'jogador2'}
                       encerrado={jogoFinalizado}
                       disabled={jogoFinalizado || turno !== 'jogador2' || rolando || revelando}
