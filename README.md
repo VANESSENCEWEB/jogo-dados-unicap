@@ -1,7 +1,7 @@
 <div align="center">
 
 
-# 🎲 Neon Dice
+# 🎲 Jogue Dados
 
 **Duelo local de dados para duas pessoas no mesmo aparelho**
 
@@ -11,6 +11,7 @@ Sala com nomes e skins · Dados 3D · Cinco rodadas · Um botão Jogar por vez �
 
 [![Vercel Deploy](https://img.shields.io/badge/Deploy-Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://joga-dados-unicap.vercel.app)
 [![GitHub](https://img.shields.io/badge/GitHub-jogo--dados--unicap-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/VANESSENCEWEB/jogo-dados-unicap)
+[![Watch Demo](https://img.shields.io/badge/▶_Watch_Demo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/qfhJxxkrEbg)
 
 <br />
 
@@ -23,6 +24,7 @@ Sala com nomes e skins · Dados 3D · Cinco rodadas · Um botão Jogar por vez �
 <br />
 
 **[🌐 Ver ao vivo](https://joga-dados-unicap.vercel.app)** ·
+**[▶ Demo](https://youtu.be/qfhJxxkrEbg)** ·
 **[📸 Screenshots](#-screenshots)** ·
 **[🛠️ Stack](#️-stack-técnica)** ·
 **[💡 Decisões](#-decisões-técnicas)** ·
@@ -34,7 +36,7 @@ Sala com nomes e skins · Dados 3D · Cinco rodadas · Um botão Jogar por vez �
 
 ## 📖 Sobre o projeto
 
-O **Neon Dice** é o jogo de dados da disciplina de Sistemas para Internet (UNICAP). Nasceu do enunciado — dois jogadores, cinco rodadas, maior soma vence — e foi tratado como **produto**: histórico de commits por bloco, deploy na Vercel e layout que cabe no celular sem esconder o que o professor pede.
+O **Jogue Dados** é o jogo de dados da disciplina de Sistemas para Internet (UNICAP). Nasceu do enunciado — dois jogadores, cinco rodadas, maior soma vence — e foi tratado como **produto**: histórico de commits por bloco, deploy na Vercel e layout que cabe no celular sem esconder o que o professor pede.
 
 Na mesa, a pessoa vê:
 
@@ -49,7 +51,7 @@ Na mesa, a pessoa vê:
 <table>
   <tr>
     <td align="center" width="50%">
-      <img src="./app/opengraph-image.jpg" alt="Arte do Neon Dice com quatro dados neon e o endereco joga-dados-unicap.vercel.app" />
+      <img src="./app/opengraph-image.jpg" alt="Jogue Dados: quatro dados neon e o endereco joga-dados-unicap.vercel.app" />
       <br />
       <sub><b>🌐 Produção</b> · https://joga-dados-unicap.vercel.app</sub>
     </td>
@@ -63,9 +65,11 @@ Na mesa, a pessoa vê:
 
 ## 🎥 Demo em vídeo
 
-A atividade pede um vídeo de **até 30 segundos** do site publicado (não do localhost): os dois jogando, um botão ativo por vez, o texto da rodada e o **Jogar Novamente** no fim.
+Vídeo de **até 30 segundos** do site publicado: os dois jogando, um botão ativo por vez, o texto da rodada e o **Jogar Novamente** no fim.
 
-Quando o link do YouTube (público ou não listado) estiver pronto, ele entra aqui e no badge do topo.
+[![Demo do Jogue Dados](https://img.youtube.com/vi/qfhJxxkrEbg/hqdefault.jpg)](https://youtu.be/qfhJxxkrEbg)
+
+**[Assistir no YouTube](https://youtu.be/qfhJxxkrEbg)** — público ou não listado; nunca privado.
 
 ## 🛠️ Stack técnica
 
