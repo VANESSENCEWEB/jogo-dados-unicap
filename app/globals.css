@@ -3117,3 +3117,322 @@ body::after {
     cursor: auto;
   }
 }
+
+/* =========================================================
+   Tela de abertura (TelaInicial.jsx)
+   Título neon + duelo de exemplo. Um efeito só: os dados
+   flutuando devagar (desliga com prefers-reduced-motion).
+   ========================================================= */
+
+.jogo-card.jogo-card-inicio {
+  border-color: transparent;
+  box-shadow: none;
+  padding: 0;
+  text-align: left;
+}
+
+.jogo-card.jogo-card-inicio::before {
+  background: transparent;
+  backdrop-filter: none;
+}
+
+.inicio {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.inicio-hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4vw;
+  align-items: center;
+  padding: clamp(24px, 5vw, 56px) clamp(8px, 2vw, 24px) clamp(32px, 5vw, 56px);
+  min-height: min(calc(100dvh - 220px), 640px);
+}
+
+.inicio-hero > * {
+  min-width: 0;
+}
+
+.inicio-selo {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  padding: 7px 14px;
+  border: 1px solid var(--linha);
+  border-radius: 999px;
+  background: rgba(7, 12, 22, 0.6);
+  color: var(--texto-suave);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.inicio-selo i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--ciano);
+  box-shadow: 0 0 10px var(--ciano);
+}
+
+.inicio-titulo {
+  margin: 22px 0 0;
+  font-family: var(--font-display), sans-serif;
+  font-weight: 800;
+  font-size: clamp(3.6rem, 9vw, 8.5rem);
+  line-height: 0.86;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+}
+
+.inicio-titulo span {
+  display: block;
+}
+
+.inicio-titulo .j {
+  color: var(--ciano);
+  text-shadow: 0 0 18px rgba(0, 255, 242, 0.55), 0 0 60px rgba(0, 255, 242, 0.25);
+}
+
+.inicio-titulo .d {
+  color: var(--magenta);
+  text-shadow: 0 0 18px rgba(255, 43, 214, 0.55), 0 0 60px rgba(255, 43, 214, 0.25);
+}
+
+.inicio-lead {
+  max-width: 30rem;
+  margin: 24px 0 0;
+  color: var(--texto-suave);
+  font-size: clamp(1rem, 1.2vw, 1.1rem);
+  line-height: 1.6;
+}
+
+.inicio-lead b {
+  color: var(--texto);
+}
+
+.inicio-ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 30px;
+}
+
+.inicio-cta,
+.inicio-cta-2 {
+  border-radius: 14px;
+  padding: 15px 24px;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+}
+
+.inicio-cta {
+  border: none;
+  background: var(--ciano);
+  color: var(--fundo);
+  font-family: var(--font-display), sans-serif;
+  font-weight: 800;
+  font-size: 1rem;
+  box-shadow: 0 0 30px rgba(0, 255, 242, 0.45);
+}
+
+.inicio-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 44px rgba(0, 255, 242, 0.6);
+}
+
+.inicio-cta-2 {
+  border: 1px solid var(--linha);
+  background: rgba(7, 12, 22, 0.6);
+  color: var(--texto);
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.inicio-cta-2:hover {
+  border-color: rgba(0, 255, 242, 0.45);
+}
+
+.inicio-cta:focus-visible,
+.inicio-cta-2:focus-visible {
+  outline: 2px solid var(--magenta);
+  outline-offset: 3px;
+}
+
+/* ---------- Duelo de exemplo ---------- */
+
+.inicio-duelo {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  justify-items: center;
+  gap: 16px;
+}
+
+.inicio-lado {
+  display: grid;
+  justify-items: center;
+  gap: 14px;
+}
+
+.inicio-dados {
+  display: flex;
+  gap: 12px;
+}
+
+.inicio-dado {
+  width: clamp(76px, 8vw, 124px);
+  height: auto;
+  animation: inicio-paira 4s ease-in-out infinite;
+}
+
+/* mesmas cores das skins da mesa (o SVG base é ciano) */
+.inicio-dado.tema-plasma { filter: hue-rotate(118deg) saturate(1.25); }
+.inicio-dado.tema-ouro { filter: hue-rotate(215deg) saturate(1.4) brightness(1.12); }
+.inicio-dado.tema-classico { filter: grayscale(0.25) sepia(0.55) contrast(1.08) brightness(1.18); }
+
+.p1 .inicio-dado:nth-child(1) { rotate: -12deg; }
+.p1 .inicio-dado:nth-child(2) { rotate: 8deg; margin-top: 18px; animation-delay: -1s; }
+.p2 .inicio-dado:nth-child(1) { rotate: 10deg; margin-top: 18px; animation-delay: -2s; }
+.p2 .inicio-dado:nth-child(2) { rotate: -8deg; animation-delay: -3s; }
+
+@keyframes inicio-paira {
+  50% { translate: 0 -10px; }
+}
+
+.inicio-soma {
+  margin: 0;
+  font-family: var(--font-display), sans-serif;
+  font-weight: 800;
+  font-size: clamp(2.4rem, 4vw, 3.6rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--cor-jogador);
+  text-shadow: 0 0 20px color-mix(in srgb, var(--cor-jogador) 50%, transparent);
+}
+
+.inicio-nome {
+  margin: -6px 0 0;
+  color: var(--texto-mudo);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  max-width: 14ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.inicio-vs {
+  width: 52px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--linha);
+  border-radius: 50%;
+  background: rgba(7, 12, 22, 0.8);
+  color: var(--texto-mudo);
+  font-family: var(--font-display), sans-serif;
+  font-weight: 800;
+}
+
+.inicio-placa {
+  grid-column: 1 / -1;
+  margin: 18px 0 0;
+  padding: 8px 16px;
+  border: 1px solid rgba(0, 255, 242, 0.35);
+  border-radius: 999px;
+  background: rgba(0, 255, 242, 0.06);
+  color: var(--ciano);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* ---------- Fatos ---------- */
+
+.inicio-fatos {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin: 0;
+  border: 1px solid var(--linha);
+  border-radius: var(--radius);
+  background: var(--vidro);
+  overflow: hidden;
+}
+
+.inicio-fato {
+  padding: 18px 22px;
+  border-right: 1px solid var(--linha);
+}
+
+.inicio-fato:last-child {
+  border-right: none;
+}
+
+.inicio-fato dd {
+  margin: 0;
+}
+
+.inicio-fato b {
+  display: block;
+  font-family: var(--font-display), sans-serif;
+  font-weight: 800;
+  font-size: clamp(1.5rem, 2.4vw, 2rem);
+  letter-spacing: -0.03em;
+}
+
+.inicio-fato span {
+  color: var(--texto-mudo);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 860px) {
+  .inicio-hero {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    min-height: 0;
+    padding-top: 20px;
+  }
+
+  .inicio-titulo {
+    font-size: clamp(3.6rem, 19vw, 6rem);
+  }
+
+  .inicio-ctas > * {
+    flex: 1;
+  }
+
+  .inicio-duelo { gap: 8px; }
+  .inicio-dados { gap: 6px; }
+  .inicio-dado { width: clamp(52px, 15vw, 72px); }
+  .inicio-vs { width: 40px; height: 40px; font-size: 0.85rem; }
+  .inicio-placa { font-size: 0.68rem; }
+
+  .inicio-fatos {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .inicio-fato {
+    border-bottom: 1px solid var(--linha);
+  }
+
+  .inicio-fato:nth-child(2n) {
+    border-right: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .inicio-dado {
+    animation: none;
+  }
+}

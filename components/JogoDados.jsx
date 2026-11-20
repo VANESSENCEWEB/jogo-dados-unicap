@@ -21,6 +21,7 @@ import HudComandos from './HudComandos';
 import Lobby from './Lobby';
 import MenuApp from './MenuApp';
 import PainelJogador from './PainelJogador';
+import TelaInicial from './TelaInicial';
 import { useTelaCheia } from '../hooks/useTelaCheia';
 import {
   DURACAO_ROLAGEM,
@@ -38,7 +39,8 @@ import { gravarSave, lerSave, limparSave, savePadrao } from '../lib/storage';
 import { definirSom, tocarPouso, tocarResultado, tocarRolagem } from '../lib/som';
 
 export default function JogoDados() {
-  const [tela, setTela] = useState('lobby');
+  // 'inicio' (abertura) → 'lobby' (sala) → 'mesa' (partida)
+  const [tela, setTela] = useState('inicio');
   const [perfil, setPerfil] = useState(() => savePadrao().perfil);
   const [estatisticas, setEstatisticas] = useState(() => savePadrao().estatisticas);
   const [partidaSalva, setPartidaSalva] = useState(null);
@@ -46,6 +48,7 @@ export default function JogoDados() {
   const [hidratado, setHidratado] = useState(false);
   const [pedirReset, setPedirReset] = useState(false);
   const [pedirAjuda, setPedirAjuda] = useState(false);
+  const [guiaVisto, setGuiaVisto] = useState(false);
   const [menuAberto, setMenuAberto] = useState(false);
   const [somLigado, setSomLigado] = useState(true);
   const timeoutRef = useRef(null);
@@ -79,7 +82,8 @@ export default function JogoDados() {
     setPartidaSalva(save.partida);
     setSomLigado(prefs.somLigado);
     definirSom(prefs.somLigado);
-    if (!prefs.guiaVisto) setPedirAjuda(true);
+    // O guia não abre por cima da abertura: só ao entrar na sala pela 1ª vez.
+    setGuiaVisto(prefs.guiaVisto);
     setHidratado(true);
     return () => {
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
@@ -88,7 +92,14 @@ export default function JogoDados() {
 
   function fecharGuia() {
     setPedirAjuda(false);
+    setGuiaVisto(true);
     gravarPrefs({ guiaVisto: true });
+  }
+
+  /** Sai da abertura para a sala. Na 1ª visita, abre o guia junto. */
+  function irParaSala() {
+    setTela('lobby');
+    if (!guiaVisto) setPedirAjuda(true);
   }
 
   function alternarSom() {
@@ -409,8 +420,16 @@ export default function JogoDados() {
         onResetar={() => setPedirReset(true)}
       />
 
-      <div className="jogo-card">
-        {tela === 'lobby' ? (
+      <div className={`jogo-card ${tela === 'inicio' ? 'jogo-card-inicio' : ''}`}>
+        {tela === 'inicio' ? (
+          <TelaInicial
+            perfil={perfil}
+            partidaSalva={partidaSalva}
+            onJogar={irParaSala}
+            onContinuar={continuarPartida}
+            onComoJogar={() => setPedirAjuda(true)}
+          />
+        ) : tela === 'lobby' ? (
           <Lobby
             perfil={perfil}
             estatisticas={estatisticas}
